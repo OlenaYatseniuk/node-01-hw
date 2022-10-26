@@ -1,6 +1,17 @@
-const getContacts = require("./contacts");
+import * as  getContacts from "./contacts.js";
+import { Command } from 'commander';
 
-const argv = require("yargs").argv;
+const program = new Command();
+program
+  .option('-a, --action <type>', 'choose action')
+  .option('-i, --id <type>', 'user id')
+  .option('-n, --name <type>', 'user name')
+  .option('-e, --email <type>', 'user email')
+  .option('-p, --phone <type>', 'user phone');
+
+program.parse(process.argv);
+
+const argv = program.opts();
 
 function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
@@ -27,4 +38,3 @@ function invokeAction({ action, id, name, email, phone }) {
 
 invokeAction(argv);
 
-//getContacts.getContactById('7');
